@@ -24,3 +24,6 @@
 
 # Ignored vscode files
 .vscode/
+
+# Terraform lock
+.terraform.lock.hcl
