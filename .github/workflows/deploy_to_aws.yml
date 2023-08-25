@@ -9,8 +9,8 @@ on:
         required: true
         default: 'plan-only'
         options:
-          - apply
-          - plan-only
+          - 'apply'
+          - 'plan-only'
           
 env:
   AWS_REGION: eu-west-3
@@ -57,7 +57,7 @@ jobs:
 
     - name: Terraform Apply
       if: ${{ inputs.apply_changes == 'apply' }}
-        run: |
+      run: |
           cd ${{ env.TERRAFORM_DIR }}
           echo "Terraform apply is currently blocked"
           # tterraform apply
