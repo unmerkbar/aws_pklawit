@@ -53,25 +53,25 @@ jobs:
         terraform init
         
     - name: Terraform Plan
-      if: ${{ inputs.terraform_mode == 'terraform_plan' }} || ${{ inputs.terraform_mode == 'terraform_apply' }}
+      if: ${{ inputs.terraform_mode == 'terraform-plan' }} || ${{ inputs.terraform_mode == 'terraform-apply' }}
       run: |
         cd ${{ env.TERRAFORM_DIR }}
         terraform plan
 
     - name: Terraform Apply
-      if: ${{ inputs.terraform_mode == 'terraform_apply' }}
+      if: ${{ inputs.terraform_mode == 'terraform-apply' }}
       run: |
         cd ${{ env.TERRAFORM_DIR }}
-        terraform apply
+        echo "terraform apply"
 
     - name: Terraform Plan for destroy
-      if: ${{ inputs.terraform_mode == 'terraform_plan_for_destroy' }} || ${{ inputs.terraform_mode == 'terraform_destroy' }}
+      if: ${{ inputs.terraform_mode == 'terraform-plan_for_destroy' }} || ${{ inputs.terraform_mode == 'terraform-destroy' }}
       run: |
         cd ${{ env.TERRAFORM_DIR }}
         terraform plan -destroy
   
     - name: Terraform destroy
-      if: ${{ inputs.terraform_mode == 'terraform_destroy' }}
+      if: ${{ inputs.terraform_mode == 'terraform-destroy' }}
       run: |
         cd ${{ env.TERRAFORM_DIR }}
-        terraform destroy
+        echo "terraform destroy"
