@@ -1,5 +1,5 @@
 # aws
 
-aws configure
-terraform init
-terraform plan -var-file="settings.tfvars"
+aws configure<br>
+terraform init<br>
+terraform plan -var-file="settings.tfvars"<br>
