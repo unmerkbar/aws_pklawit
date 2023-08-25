@@ -5,7 +5,7 @@ on:
 
 env:
   AWS_REGION: eu-west-3
-  TF_WORKSPACE: "./terraform"
+  # TF_WORKSPACE: "./terraform"
   
 permissions:
   contents: read
