@@ -11,7 +11,7 @@ on:
         options:
           - 'terraform-plan'
           - 'terraform-apply'
-          - 'terraform-plan for destroy'
+          - 'terraform-plan_for_destroy'
           - 'terraform-destroy'
           
 env:
@@ -65,7 +65,7 @@ jobs:
         terraform apply
 
     - name: Terraform Plan for destroy
-      if: ${{ inputs.terraform_mode == 'terraform_plan for destroy' }} || ${{ inputs.terraform_mode == 'terraform_destroy' }}
+      if: ${{ inputs.terraform_mode == 'terraform_plan_for_destroy' }} || ${{ inputs.terraform_mode == 'terraform_destroy' }}
       run: |
         cd ${{ env.TERRAFORM_DIR }}
         terraform plan -destroy
