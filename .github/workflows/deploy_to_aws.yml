@@ -3,14 +3,16 @@ name: Deploy to AWS
 on:
   workflow_dispatch:
     inputs:
-      apply_changes:
-        description: "Apply changes by executing 'terraform apply'?"
+      terraform_mode:
+        description: "Select terraform operation"
         type: choice
         required: true
-        default: 'plan-only'
+        default: 'terraform-plan'
         options:
-          - 'apply'
-          - 'plan-only'
+          - 'terraform-plan'
+          - 'terraform-apply'
+          - 'terraform-plan for destroy'
+          - 'terraform-destroy'
           
 env:
   AWS_REGION: eu-west-3
@@ -51,13 +53,25 @@ jobs:
         terraform init
         
     - name: Terraform Plan
+      if: ${{ inputs.terraform_mode == 'terraform_plan' }} || ${{ inputs.terraform_mode == 'terraform_apply' }}
       run: |
         cd ${{ env.TERRAFORM_DIR }}
         terraform plan
 
     - name: Terraform Apply
-      if: ${{ inputs.apply_changes == 'apply' }}
+      if: ${{ inputs.terraform_mode == 'terraform_apply' }}
       run: |
         cd ${{ env.TERRAFORM_DIR }}
-        echo "Terraform apply is currently blocked"
-        # tterraform apply
+        terraform apply
+
+    - name: Terraform Plan for destroy
+      if: ${{ inputs.terraform_mode == 'terraform_plan for destroy' }} || ${{ inputs.terraform_mode == 'terraform_destroy' }}
+      run: |
+        cd ${{ env.TERRAFORM_DIR }}
+        terraform plan -destroy
+  
+    - name: Terraform destroy
+      if: ${{ inputs.terraform_mode == 'terraform_destroy' }}
+      run: |
+        cd ${{ env.TERRAFORM_DIR }}
+        terraform destroy
