@@ -28,6 +28,9 @@ jobs:
     environment: production
 
     steps:
+    - name: Print inputs
+      run: echo "${{ toJSON(github.event.inputs) }}"
+
     - name: Checkout
       uses: actions/checkout@v3
 
