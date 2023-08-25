@@ -58,6 +58,6 @@ jobs:
     - name: Terraform Apply
       if: ${{ inputs.apply_changes == 'apply' }}
       run: |
-          cd ${{ env.TERRAFORM_DIR }}
-          echo "Terraform apply is currently blocked"
-          # tterraform apply
+        cd ${{ env.TERRAFORM_DIR }}
+        echo "Terraform apply is currently blocked"
+        # tterraform apply
