@@ -12,6 +12,7 @@
 
 # SSH Keys
 *.pem
+my-rsa-key*
 
 # Backup files
 *.bak
