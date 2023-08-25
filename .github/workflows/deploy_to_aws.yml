@@ -5,7 +5,7 @@ on:
 
 env:
   AWS_REGION: eu-west-3
-  # TF_WORKSPACE: "./terraform"
+  TERRAFORM_DIR: "./terraform"
   
 permissions:
   contents: read
@@ -38,9 +38,13 @@ jobs:
 
     - name: Terraform init
       run: |
-        cd ${{ env.TF_WORKSPACE }}
+        cd ${{ env.TERRAFORM_DIR }}
         terraform init
-
+        
+    - name: Terraform Plan
+      run: |
+        cd ${{ env.TERRAFORM_DIR }}
+        terraform plan
 
     # - name: Login to Amazon ECR
     #   id: login-ecr
