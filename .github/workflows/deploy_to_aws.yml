@@ -17,6 +17,7 @@ on:
 env:
   AWS_REGION: eu-west-3
   TERRAFORM_DIR: "./terraform"
+  SSH_KEYS_DIR: "./terraform/ssh_keys"
   
 permissions:
   contents: read
@@ -33,6 +34,9 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v3
+
+    - name: Environment
+      run: env
 
     - name: Save SSH keys under ssh_keys for GitHub Action
       run: |
