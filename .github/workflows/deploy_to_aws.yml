@@ -17,6 +17,7 @@ on:
 env:
   AWS_REGION: eu-west-3
   TERRAFORM_DIR: "./terraform"
+  TF_LOG: "DEBUG"
   SSH_KEYS_DIR: "./terraform/ssh_keys"
   
 permissions:
