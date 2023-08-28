@@ -47,6 +47,9 @@ jobs:
         chmod 600 ./terraform/ssh_keys/my-rsa-key
         ls -als ./terraform/ssh_keys/*
 
+    - name: check full path
+      run: ls -als /home/runner/work/aws_pklawit/aws_pklawit/terraform/ssh_keys/
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:

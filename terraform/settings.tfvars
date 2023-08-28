@@ -9,8 +9,10 @@ ec2_instance_type    = "t2.micro"    //type of instance
 ec2_image_id = "ami-008bcc0a51a849165" // Ubuntu 20.04: ami-008bcc0a51a849165 ; Ubuntu 22.04: ami-05b5a865c3579bbc4
 db_instance_class   = "db.t2.micro" //type of RDS Instance
 root_volume_size = 22
-PUBLIC_KEY_PATH  = "./terraform/ssh_keys/my-rsa-key.pub" // key name for ec2, make sure it is created before terrafomr apply
-PRIV_KEY_PATH    = "./terraform/ssh_keys/my-rsa-key"
+//PUBLIC_KEY_PATH  = "./terraform/ssh_keys/my-rsa-key.pub" // key name for ec2, make sure it is created before terrafomr apply
+//PRIV_KEY_PATH    = "./terraform/ssh_keys/my-rsa-key"
+PUBLIC_KEY_PATH  = "/home/runner/work/aws_pklawit/aws_pklawit/terraform/ssh_keys/my-rsa-key.pub"
+PRIV_KEY_PATH = "/home/runner/work/aws_pklawit/aws_pklawit/terraform/ssh_keys/my-rsa-key"
 
 database_name           = "wordpress_db"   // database name
 database_user           = "wordpress_user" //database username
