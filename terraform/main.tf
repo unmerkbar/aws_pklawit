@@ -203,8 +203,8 @@ resource "aws_instance" "wordpressec2" {
 // Sends your public key to the instance
 resource "aws_key_pair" "mykey-pair" {
   key_name   = "mykey-pair"
-  # public_key = file(var.PUBLIC_KEY_PATH)
-  public_key = file("./ssh_keys/my-rsa-key.pub")
+  public_key = file(var.PUBLIC_KEY_PATH)
+  # public_key = file("./ssh_keys/my-rsa-key.pub")
 }
 
 # creating Elastic IP for EC2
