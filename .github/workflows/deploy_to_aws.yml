@@ -82,7 +82,7 @@ jobs:
       if: inputs.terraform_mode == 'terraform-apply'
       run: |
         cd ${{ env.TERRAFORM_DIR }}
-        echo 'terraform apply -var-file="settings.tfvars"'
+        terraform apply -auto-approve -var-file="settings.tfvars"
 
     - name: Terraform Plan for destroy
       if: inputs.terraform_mode == 'terraform-plan_for_destroy'
@@ -94,4 +94,4 @@ jobs:
       if: inputs.terraform_mode == 'terraform-destroy'
       run: |
         cd ${{ env.TERRAFORM_DIR }}
-        echo 'terraform destroy -var-file="settings.tfvars"'
+        terraform destroy -auto-approve -var-file="settings.tfvars"
