@@ -73,13 +73,13 @@ jobs:
         terraform init
         
     - name: Terraform Plan
-      if: ${{ inputs.terraform_mode == 'terraform-plan' }} || ${{ inputs.terraform_mode == 'terraform-apply' }}
+      if: inputs.terraform_mode == 'terraform-plan'
       run: |
         cd ${{ env.TERRAFORM_DIR }}
         terraform plan -var-file="settings.tfvars"
 
     - name: Terraform Apply
-      if: ${{ inputs.terraform_mode == 'terraform-apply' }}
+      if: inputs.terraform_mode == 'terraform-apply'
       run: |
         cd ${{ env.TERRAFORM_DIR }}
         echo 'terraform apply -var-file="settings.tfvars"'
@@ -91,7 +91,7 @@ jobs:
         terraform plan -destroy -var-file="settings.tfvars"
   
     - name: Terraform destroy
-      if: ${{ inputs.terraform_mode == 'terraform-destroy' }}
+      if: inputs.terraform_mode == 'terraform-destroy'
       run: |
         cd ${{ env.TERRAFORM_DIR }}
         echo 'terraform destroy -var-file="settings.tfvars"'
