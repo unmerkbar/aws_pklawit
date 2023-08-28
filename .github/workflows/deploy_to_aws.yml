@@ -76,7 +76,7 @@ jobs:
       if: ${{ inputs.terraform_mode == 'terraform-plan' }} || ${{ inputs.terraform_mode == 'terraform-apply' }}
       run: |
         cd ${{ env.TERRAFORM_DIR }}
-        terraform plan
+        terraform plan -var-file="settings.tfvars"
 
     - name: Terraform Apply
       if: ${{ inputs.terraform_mode == 'terraform-apply' }}
