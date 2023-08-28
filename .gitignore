@@ -12,8 +12,8 @@
 
 # SSH Keys
 *.pem
-my-rsa-key*
-# my-rsa-key
+my-rsa-key
+my-rsa-key.pub
 
 # Backup files
 *.bak
