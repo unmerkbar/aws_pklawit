@@ -36,9 +36,9 @@ jobs:
 
     - name: Save SSH keys under ssh_keys for GitHub Action
       run: |
-        echo ${{ secrets.RSA_KEY_PUB }} > ./ssh_keys/my-rsa-key.pub
-        echo ${{ secrets.RSA_KEY_PRIV }} > ./ssh_keys/my-rsa-key
-        ls -als ./ssh_keys/*
+        echo ${{ secrets.RSA_KEY_PUB }} > ./terraform/ssh_keys/my-rsa-key.pub
+        echo ${{ secrets.RSA_KEY_PRIV }} > ./terraform/ssh_keys/my-rsa-key
+        ls -als ./terraform/ssh_keys/*
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
