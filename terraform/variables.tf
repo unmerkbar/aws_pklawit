@@ -11,14 +11,8 @@ variable "subnet3_cidr" {}
 variable "availability_zone1" {}
 variable "availability_zone2" {}
 
-# variable "shared_credentials_file" {}
-variable "IsUbuntu" {
-  type    = bool
-  default = true
-
-}
-
 variable "ec2_instance_type" {}
+variable "ec2_image_id" {}
 variable "db_instance_class" {}
 variable "PUBLIC_KEY_PATH" {}
 variable "PRIV_KEY_PATH" {}

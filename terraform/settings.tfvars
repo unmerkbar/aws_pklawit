@@ -6,9 +6,9 @@ subnet3_cidr = "192.168.3.0/24"
 availability_zone1 = "eu-west-3a"
 availability_zone2 = "eu-west-3b"
 ec2_instance_type    = "t2.micro"    //type of instance
+ec2_image_id = "ami-008bcc0a51a849165" // Ubuntu 20.04: ami-008bcc0a51a849165 ; Ubuntu 22.04: ami-05b5a865c3579bbc4
 db_instance_class   = "db.t2.micro" //type of RDS Instance
 root_volume_size = 22
-IsUbuntu                = true             // true for ubuntu,false for linux 2  //boolean type
 PUBLIC_KEY_PATH  = "./ssh_keys/my-rsa-key.pub" // key name for ec2, make sure it is created before terrafomr apply
 PRIV_KEY_PATH    = "./ssh_keys/my-rsa-key"
 

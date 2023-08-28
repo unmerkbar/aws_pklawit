@@ -169,7 +169,7 @@ resource "aws_db_instance" "wordpressdb" {
 
 # change USERDATA variable value after grabbing RDS endpoint info
 data "template_file" "user_data" {
-  template = var.IsUbuntu ? file("${path.module}/userdata_ubuntu.tpl") : file("${path.module}/user_data.tpl")
+  template = file("${path.module}/userdata_ubuntu.tpl")
   vars = {
     db_username      = var.database_user
     db_user_password = var.database_password
@@ -181,7 +181,7 @@ data "template_file" "user_data" {
 
 # Create EC2 ( only after RDS is provisioned)
 resource "aws_instance" "wordpressec2" {
-  ami                    = var.IsUbuntu ? data.aws_ami.ubuntu.id : data.aws_ami.linux2.id
+  ami                    = var.ec2_image_id
   instance_type          = var.ec2_instance_type
   subnet_id              = aws_subnet.public-subnet1.id
   vpc_security_group_ids = ["${aws_security_group.ec2-sg.id}"]
@@ -232,7 +232,7 @@ output "INFO" {
 #   }
 #   connection {
 #     type        = "ssh"
-#     user        = var.IsUbuntu ? "ubuntu" : "ec2-user"
+#     user        = "ubuntu"
 #     private_key = file(var.PRIV_KEY_PATH)
 #     host        = aws_eip.eip.public_ip
 #   }
