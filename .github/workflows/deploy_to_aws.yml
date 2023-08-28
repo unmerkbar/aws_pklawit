@@ -17,7 +17,7 @@ on:
 env:
   AWS_REGION: eu-west-3
   TERRAFORM_DIR: "./terraform"
-  TF_LOG: "DEBUG"
+  # TF_LOG: "DEBUG"
   SSH_KEYS_DIR: "./terraform/ssh_keys"
   
 permissions:
@@ -39,17 +39,17 @@ jobs:
     - name: Environment
       run: env
 
-    # - name: Save SSH keys under ssh_keys for GitHub Action
-    #   run: |
-    #     echo "${{ secrets.RSA_KEY_PUB }}" > ./terraform/ssh_keys/my-rsa-key.pub
-    #     chmod 644 ./terraform/ssh_keys/my-rsa-key.pub
-    #     ls -als ./terraform/ssh_keys/*
-    #     echo "${{ secrets.RSA_KEY_PRIV }}" > ./terraform/ssh_keys/my-rsa-key
-    #     chmod 600 ./terraform/ssh_keys/my-rsa-key
-    #     ls -als ./terraform/ssh_keys/*
+    - name: Save SSH keys under ssh_keys for GitHub Action
+      run: |
+        echo "${{ secrets.RSA_KEY_PUB }}" > ./terraform/ssh_keys/my-rsa-key.pub
+        chmod 644 ./terraform/ssh_keys/my-rsa-key.pub
+        ls -als ./terraform/ssh_keys/*
+        echo "${{ secrets.RSA_KEY_PRIV }}" > ./terraform/ssh_keys/my-rsa-key
+        chmod 600 ./terraform/ssh_keys/my-rsa-key
+        ls -als ./terraform/ssh_keys/*
 
-    - name: check full path
-      run: ls -als /home/runner/work/aws_pklawit/aws_pklawit/terraform/ssh_keys/
+    # - name: check full path
+    #   run: ls -als /home/runner/work/aws_pklawit/aws_pklawit/terraform/ssh_keys/
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
