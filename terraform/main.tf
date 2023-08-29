@@ -6,18 +6,18 @@ terraform {
   }
   required_version = ">= 0.13"
 
+  backend "s3" {
+    bucket = "pklawit-tfstate"
+    key = "state/terraform.tfstate"
+    region = "eu-west-3"
+    encrypt = true
+  }
 }
 
 provider "aws" {
   region = var.region #"eu-west-3"
 }
 
-backend "s3" {
-  bucket = "pklawit-tfstate"
-  key = "state/terraform.tfstate"
-  region = var.region
-  encrypt = true
-}
 
 resource "aws_vpc" "testvpc" {
   cidr_block = var.vpc_cidr #"192.168.1.0/24"
