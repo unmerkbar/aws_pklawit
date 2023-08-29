@@ -24,8 +24,8 @@ apt install -y mysql-client-core-8.0
 systemctl enable --now  apache2
 
 # wait for apache to start
-echo "[pklawit] Pause for 5 minutes"
-sleep 300
+echo "[pklawit] Pause for 3 minutes"
+sleep 180
 
 # Change OWNER and permission of directory /var/www
 usermod -a -G www-data ubuntu
@@ -39,13 +39,12 @@ chown -R ubuntu:www-data /var/www/html
 echo "[pklawit] Installing WP"
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
-mv wp-cli.phar /usr/local/bin/wp
-wp core download --path=/var/www/html --allow-root
-wp config create --dbname=$db_name --dbuser=$db_username --dbpass=$db_user_password --dbhost=$db_RDS --path=/var/www/html --allow-root --extra-php <<PHP
+# mv wp-cli.phar /usr/local/bin/wp
+./wp-cli.phar core download --path=/var/www/html --allow-root
+./wp-cli.phar config create --dbname=$db_name --dbuser=$db_username --dbpass=$db_user_password --dbhost=$db_RDS --path=/var/www/html --allow-root --extra-php <<PHP
 define( 'FS_METHOD', 'direct' );
 define('WP_MEMORY_LIMIT', '128M');
 PHP
-
 
 # Change permission of /var/www/html/
 chown -R ubuntu:www-data /var/www/html
@@ -59,4 +58,8 @@ a2enmod rewrite
 systemctl restart apache2
 
 echo "[pklawit] WordPress Installed"
+echo "db_username: ${db_username}"
+echo "db_user_password: ${db_user_password}"
+echo "db_name: ${db_name}"
+echo "db_RDS: ${db_RDS}"
 
