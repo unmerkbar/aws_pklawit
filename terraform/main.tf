@@ -149,7 +149,7 @@ resource "aws_db_subnet_group" "RDS_subnetgrp" {
 }
 
 # Create RDS instance
-resource "aws_db_instance" "wordpressdb" {
+resource "aws_db_instance" "wordpress-db" {
   allocated_storage      = 10
   engine                 = "mysql"
   engine_version         = "5.7"
@@ -169,18 +169,18 @@ resource "aws_db_instance" "wordpressdb" {
 
 # change USERDATA variable value after grabbing RDS endpoint info
 data "template_file" "user_data" {
-  template = file("${path.module}/userdata_ubuntu.tpl")
+  template = file("${path.module}/ec2_userdata.tpl")
   vars = {
     db_username      = var.database_user
     db_user_password = var.database_password
     db_name          = var.database_name
-    db_RDS           = aws_db_instance.wordpressdb.endpoint
+    db_RDS           = aws_db_instance.wordpress-db.endpoint
   }
 }
 
 
 # Create EC2 ( only after RDS is provisioned)
-resource "aws_instance" "wordpressec2" {
+resource "aws_instance" "wordpress-ec2" {
   ami                    = var.ec2_image_id
   instance_type          = var.ec2_instance_type
   subnet_id              = aws_subnet.public-subnet1.id
@@ -197,7 +197,7 @@ resource "aws_instance" "wordpressec2" {
   }
 
   # this will stop creating EC2 before RDS is provisioned
-  depends_on = [aws_db_instance.wordpressdb]
+  depends_on = [aws_db_instance.wordpress-db]
 }
 
 // Sends your public key to the instance
@@ -209,7 +209,7 @@ resource "aws_key_pair" "mykey-pair" {
 
 # creating Elastic IP for EC2
 resource "aws_eip" "eip" {
-  instance = aws_instance.wordpressec2.id
+  instance = aws_instance.wordpress-ec2.id
 
 }
 
@@ -217,7 +217,7 @@ output "IP" {
   value = aws_eip.eip.public_ip
 }
 output "RDS-Endpoint" {
-  value = aws_db_instance.wordpressdb.endpoint
+  value = aws_db_instance.wordpress-db.endpoint
 }
 
 output "INFO" {
@@ -227,8 +227,8 @@ output "INFO" {
 # resource "null_resource" "Wordpress_Installation_Waiting" {
 #    # trigger will create new null-resource if ec2 id or rds is changed
 #    triggers={
-#     ec2_id=aws_instance.wordpressec2.id,
-#     rds_endpoint=aws_db_instance.wordpressdb.endpoint
+#     ec2_id=aws_instance.wordpress-ec2.id,
+#     rds_endpoint=aws_db_instance.wordpress-db.endpoint
 
 #   }
 #   connection {

@@ -53,6 +53,8 @@ find /var/www -type f -exec chmod 0664 {} \;
 # define('WP_MEMORY_LIMIT', '128M');
 # EOF
 
+chown -R ubuntu:www-data /var/www/html
+
 #**********************Installing Wordpress using WP CLI********************************* 
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
@@ -67,7 +69,7 @@ PHP
 
 
 # Change permission of /var/www/html/
-chown -R ubuntu:www-data /var/www/html
+# chown -R ubuntu:www-data /var/www/html
 chmod -R 774 /var/www/html
 rm /var/www/html/index.html
 #  enable .htaccess files in Apache config using sed command
