@@ -57,27 +57,27 @@ chown -R ubuntu:www-data /var/www/html
 
 #**********************Installing Wordpress using WP CLI********************************* 
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-chmod +x wp-cli.phar
-mv wp-cli.phar /usr/local/bin/wp
-wp core download --path=/var/www/html --allow-root
-wp config create --dbname=$db_name --dbuser=$db_username --dbpass=$db_user_password --dbhost=$db_RDS --path=/var/www/html --allow-root --extra-php <<PHP
-define( 'FS_METHOD', 'direct' );
-define('WP_MEMORY_LIMIT', '128M');
-PHP
+// chmod +x wp-cli.phar
+// mv wp-cli.phar /usr/local/bin/wp
+// wp core download --path=/var/www/html --allow-root
+// wp config create --dbname=$db_name --dbuser=$db_username --dbpass=$db_user_password --dbhost=$db_RDS --path=/var/www/html --allow-root --extra-php <<PHP
+// define( 'FS_METHOD', 'direct' );
+// define('WP_MEMORY_LIMIT', '128M');
+// PHP
 
 
 
 
-# Change permission of /var/www/html/
-# chown -R ubuntu:www-data /var/www/html
-chmod -R 774 /var/www/html
-rm /var/www/html/index.html
-#  enable .htaccess files in Apache config using sed command
-sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride all/' /etc/apache2/apache2.conf
-a2enmod rewrite
+// # Change permission of /var/www/html/
+// # chown -R ubuntu:www-data /var/www/html
+// chmod -R 774 /var/www/html
+// rm /var/www/html/index.html
+// #  enable .htaccess files in Apache config using sed command
+// sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride all/' /etc/apache2/apache2.conf
+// a2enmod rewrite
 
-# restart apache
+// # restart apache
 
-systemctl restart apache2
-echo WordPress Installed
+// systemctl restart apache2
+// echo WordPress Installed
 
