@@ -1,10 +1,11 @@
-Generate rsa key pair called my-rsa-key and my-rsa-key.pub
-and store them in this folder
+SSH Key Pair should be present in this folder
 
-Keys may be generated with the command:
+For local deployment:
+- generate rsa key pair called my-rsa-key and my-rsa-key.pub
+ (ssh-keygen -t rsa -b 4096 -C "your_email@domain")
+  and store them in this folder
 
-ssh-keygen -t rsa -b 4096 -C "pklawit@gmail.com"
+For GitHub action deployments:
+- generate rsa key pair and store keys in GitHub Secrets
+- in workflow file take the secrets and save in this directory as my-rsa-key and my-rsa-key.pub before the Terraform steps
 
-For GitHub action it will be necessary to:
-1. store generated priv/pub keys in secrets
-2. save them in the terraform/ssh_keys under my-rsa-key and my-rsa-key.pub  before executing the terraform

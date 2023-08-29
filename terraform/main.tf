@@ -211,13 +211,11 @@ resource "aws_instance" "wordpress-ec2" {
 resource "aws_key_pair" "mykey-pair" {
   key_name   = "mykey-pair"
   public_key = file(var.PUBLIC_KEY_PATH)
-  # public_key = file("./ssh_keys/my-rsa-key.pub")
 }
 
 # creating Elastic IP for EC2
 resource "aws_eip" "eip" {
   instance = aws_instance.wordpress-ec2.id
-
 }
 
 output "IP" {
@@ -228,25 +226,5 @@ output "RDS-Endpoint" {
 }
 
 output "INFO" {
-  value = "AWS Resources and Wordpress has been provisioned. Go to http://${aws_eip.eip.public_ip}"
+  value = "Deployment completed. Go to http://${aws_eip.eip.public_ip}"
 }
-
-# resource "null_resource" "Wordpress_Installation_Waiting" {
-#    # trigger will create new null-resource if ec2 id or rds is changed
-#    triggers={
-#     ec2_id=aws_instance.wordpress-ec2.id,
-#     rds_endpoint=aws_db_instance.wordpress-db.endpoint
-
-#   }
-#   connection {
-#     type        = "ssh"
-#     user        = "ubuntu"
-#     private_key = file(var.PRIV_KEY_PATH)
-#     host        = aws_eip.eip.public_ip
-#   }
-
-
-#   provisioner "remote-exec" {
-#     inline = ["sudo tail -f -n0 /var/log/cloud-init-output.log| grep -q 'WordPress Installed'"]
-
-  # }

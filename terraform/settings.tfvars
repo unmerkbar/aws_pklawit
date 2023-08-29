@@ -11,9 +11,6 @@ db_instance_class   = "db.t2.micro" //type of RDS Instance
 root_volume_size = 22
 PUBLIC_KEY_PATH  = "./ssh_keys/my-rsa-key.pub" // key name for ec2, make sure it is created before terrafomr apply
 PRIV_KEY_PATH    = "./ssh_keys/my-rsa-key"
-//PUBLIC_KEY_PATH  = "/home/runner/work/aws_pklawit/aws_pklawit/terraform/ssh_keys/my-rsa-key.pub"
-//PRIV_KEY_PATH = "/home/runner/work/aws_pklawit/aws_pklawit/terraform/ssh_keys/my-rsa-key"
-
 database_name           = "wordpress_db"   // database name
 database_user           = "wordpress_user" //database username
 // Password here will be used to create master db user.It should be changed later

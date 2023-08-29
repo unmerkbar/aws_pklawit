@@ -1,5 +1,5 @@
 #!/bin/bash
-# Apache and WordPress installation
+# Apache and WordPress installation at EC2 creation
 
 # varaible will be populated by terraform template
 db_username=${db_username}
@@ -24,8 +24,8 @@ apt install -y mysql-client-core-8.0
 systemctl enable --now  apache2
 
 # wait for apache to start
-echo "[pklawit] Pause for 3 minutes"
-sleep 180
+echo "[pklawit] Pause for 1 minute"
+sleep 60
 
 # Change OWNER and permission of directory /var/www
 usermod -a -G www-data ubuntu
@@ -42,7 +42,7 @@ chmod +x wp-cli.phar
 # mv wp-cli.phar /usr/local/bin/wp
 ./wp-cli.phar core download --path=/var/www/html --allow-root
 ./wp-cli.phar config create --dbname=$db_name --dbuser=$db_username --dbpass=$db_user_password --dbhost=$db_RDS --path=/var/www/html --allow-root --extra-php <<PHP
-define( 'FS_METHOD', 'direct' );
+define('FS_METHOD', 'direct');
 define('WP_MEMORY_LIMIT', '128M');
 PHP
 
@@ -62,4 +62,3 @@ echo "db_username: ${db_username}"
 echo "db_user_password: ${db_user_password}"
 echo "db_name: ${db_name}"
 echo "db_RDS: ${db_RDS}"
-
