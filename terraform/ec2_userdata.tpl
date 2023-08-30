@@ -72,7 +72,7 @@ systemctl restart apache2
 
 # generate self-signed certificate - this will create: /etc/ssl/certs/apache-selfsigned.crt
 echo "[debug] creating self-signed cert - will be stored under: /etc/ssl/certs/apache-selfsigned.crt"
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -subj "/C=PL/ST=KujPom/L=Bydgoszcz/O=Private/OU=IT Department/CN=wordpress.net"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -subj "/C=PL/ST=KujPom/L=Bydgoszcz/O=Private/OU=IT Department/CN=wordpress.net"
 
 echo "[debug] creating /etc/apache2/sites-available/wordpress.net.conf file" 
 cat << 'EOF' > /etc/apache2/sites-available/wordpress.net.conf
@@ -86,9 +86,9 @@ cat << 'EOF' > /etc/apache2/sites-available/wordpress.net.conf
 </VirtualHost>
 EOF
 
-echo "[debug] enabling WordPress simple ssl plugin"
+echo "[debug] enabling wordpress.net site"
 a2ensite wordpress.net.conf
 systemctl restart apache2
 
-echo "[debug] simple ssl plugin install"
-./wp-cli.phar plugin install really-simple-ssl
+#echo "[debug] simple ssl plugin install"
+#./wp-cli.phar plugin install really-simple-ssl
