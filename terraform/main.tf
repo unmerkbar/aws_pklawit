@@ -157,16 +157,16 @@ resource "aws_db_subnet_group" "RDS_subnetgrp" {
 
 # Create RDS instance
 resource "aws_db_instance" "wordpress-db" {
-  allocated_storage      = 10
-  engine                 = "mysql"
-  engine_version         = "5.7"
-  instance_class         = var.db_instance_class
-  db_subnet_group_name   = aws_db_subnet_group.RDS_subnetgrp.id
+  allocated_storage = 10
+  engine = "mysql"
+  engine_version = "5.7"
+  instance_class = var.db_instance_class
+  db_subnet_group_name = aws_db_subnet_group.RDS_subnetgrp.id
   vpc_security_group_ids = ["${aws_security_group.rds-sg.id}"]
-  db_name                   = var.database_name
-  username               = var.database_user
-  password               = var.database_password
-  skip_final_snapshot    = true
+  db_name = var.database_name
+  username = var.database_user
+  password = var.database_password
+  skip_final_snapshot = true
 
  # make sure rds manual password changes are ignored
   lifecycle {
@@ -174,33 +174,32 @@ resource "aws_db_instance" "wordpress-db" {
    }
 }
 
-# change USERDATA variable value after grabbing RDS endpoint info
+# change USERDATA variables value after grabbing RDS endpoint info
 data "template_file" "user_data" {
   template = file("${path.module}/ec2_userdata.tpl")
   vars = {
-    db_username      = var.database_user
+    db_username = var.database_user
     db_user_password = var.database_password
-    db_name          = var.database_name
-    db_RDS           = aws_db_instance.wordpress-db.endpoint
+    db_name = var.database_name
+    db_RDS = aws_db_instance.wordpress-db.endpoint
   }
 }
 
 
-# Create EC2 ( only after RDS is provisioned)
+# Create EC2 (once RDS is provisioned)
 resource "aws_instance" "wordpress-ec2" {
-  ami                    = var.ec2_image_id
-  instance_type          = var.ec2_instance_type
-  subnet_id              = aws_subnet.public-subnet1.id
+  ami = var.ec2_image_id
+  instance_type = var.ec2_instance_type
+  subnet_id = aws_subnet.public-subnet1.id
   vpc_security_group_ids = ["${aws_security_group.ec2-sg.id}"]
-  user_data              = data.template_file.user_data.rendered
-  key_name               = aws_key_pair.mykey-pair.id
+  user_data = data.template_file.user_data.rendered
+  key_name = aws_key_pair.mykey-pair.id
   tags = {
     Name = "Wordpress.web"
   }
 
   root_block_device {
     volume_size = var.root_volume_size # in GB 
-
   }
 
   # this will stop creating EC2 before RDS is provisioned
