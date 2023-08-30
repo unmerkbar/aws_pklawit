@@ -3,7 +3,7 @@
 1. Clone the repository
 1. Configure variables in 'settings.tfvars'
 1. Prepare S3 bucket on AWS for storing tf_state - put S3 details in 'backend' section of 'main.tf'
-1. Prepare SSH Key Pair as described [here](terraform/ssh_keysREADME.md)in ./ssh_keys/readme_keys.md
+1. Prepare SSH Key Pair as described [here](terraform/ssh_keys/readme_keys.md)
 1. Install AWS CLI
 1. Install Terraform
 1. Connect to AWS infrastructure: 'aws configure'
