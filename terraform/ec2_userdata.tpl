@@ -47,6 +47,10 @@ define('WP_MEMORY_LIMIT', '128M');
 define('WP_ENVIRONMENT_TYPE', 'development');
 PHP
 
+echo "[pklawit] simple ssl plugin install"
+./wp-cli.phar plugin install really-simple-ssl –activate
+
+
 # Change permission of /var/www/html/
 chown -R ubuntu:www-data /var/www/html
 chmod -R 774 /var/www/html
