@@ -1,0 +1,79 @@
+name: Reinstall on AWS
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_reinstall:
+        description: "Do you really want to reinstall everything on AWS?"
+        type: choice
+        required: true
+        default: 'no'
+        options:
+          - 'no'
+          - 'yes'
+          
+env:
+  AWS_REGION: eu-west-3
+  TERRAFORM_DIR: "./terraform"
+  SSH_KEYS_DIR: "./terraform/ssh_keys"
+  
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Print inputs
+      run: echo "${{ toJSON(github.event.inputs) }}"
+
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Environment
+      run: env
+
+    - name: Save SSH keys under ssh_keys for GitHub Action
+      run: |
+        echo "${{ secrets.RSA_KEY_PUB }}" > ./terraform/ssh_keys/my-rsa-key.pub
+        chmod 644 ./terraform/ssh_keys/my-rsa-key.pub
+        ls -als ./terraform/ssh_keys/*
+        echo "${{ secrets.RSA_KEY_PRIV }}" > ./terraform/ssh_keys/my-rsa-key
+        chmod 600 ./terraform/ssh_keys/my-rsa-key
+        ls -als ./terraform/ssh_keys/*
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+          
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform init
+      run: |
+        cd ${{ env.TERRAFORM_DIR }}
+        terraform init
+
+    - name: Terraform destroy - remove environment
+      if: inputs.confirm_reinstall == 'yes'
+      run: |
+        cd ${{ env.TERRAFORM_DIR }}
+        terraform destroy -auto-approve -var-file="settings.tfvars"
+
+    - name: Pause for 1 minute
+      if: inputs.confirm_reinstall == 'yes'
+      run: sleep 60
+
+    - name: Terraform apply - install environment
+      if: inputs.confirm_reinstall == 'yes'
+      run: |
+        cd ${{ env.TERRAFORM_DIR }}
+        terraform apply -auto-approve -var-file="settings.tfvars"
+  
+
