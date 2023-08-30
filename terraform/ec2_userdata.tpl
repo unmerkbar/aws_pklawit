@@ -24,7 +24,7 @@ apt install -y mysql-client-core-8.0
 systemctl enable --now  apache2
 
 # wait for apache to start
-echo "[pklawit] Pause for 1 minute"
+echo "[debug] Pause for 1 minute"
 sleep 60
 
 # Change OWNER and permission of directory /var/www
@@ -32,11 +32,11 @@ usermod -a -G www-data ubuntu
 chown -R ubuntu:www-data /var/www
 find /var/www -type d -exec chmod 2775 {} \;
 find /var/www -type f -exec chmod 0664 {} \;
-echo "[pklawit] Changing permissions for /var/www/html"
+echo "[debug] Changing permissions for /var/www/html"
 chown -R ubuntu:www-data /var/www/html
 
 #**********************Installing Wordpress using WP CLI********************************* 
-echo "[pklawit] Installing WP"
+echo "[debug] Installing WP"
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 # mv wp-cli.phar /usr/local/bin/wp
@@ -46,9 +46,6 @@ define('FS_METHOD', 'direct');
 define('WP_MEMORY_LIMIT', '128M');
 define('WP_ENVIRONMENT_TYPE', 'development');
 PHP
-
-echo "[pklawit] simple ssl plugin install"
-./wp-cli.phar plugin install really-simple-ssl –activate
 
 
 # Change permission of /var/www/html/
@@ -62,8 +59,36 @@ a2enmod rewrite
 # restart apache
 systemctl restart apache2
 
-echo "[pklawit] WordPress Installed"
+echo "[debug] WordPress Installed"
 echo "db_username: ${db_username}"
 echo "db_user_password: ${db_user_password}"
 echo "db_name: ${db_name}"
 echo "db_RDS: ${db_RDS}"
+
+# enable ssl module in apache2
+echo "[debug] enabling ssl module in apache2"
+a2enmod ssl
+systemctl restart apache2
+
+# generate self-signed certificate - this will create: /etc/ssl/certs/apache-selfsigned.crt
+echo "[debug] creating self-signed cert - will be stored under: /etc/ssl/certs/apache-selfsigned.crt"
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -subj "/C=PL/ST=KujPom/L=Bydgoszcz/O=Private/OU=IT Department/CN=wordpress.net"
+
+echo "[debug] creating /etc/apache2/sites-available/wordpress.net.conf file" 
+cat << 'EOF' > /etc/apache2/sites-available/wordpress.net.conf
+<VirtualHost *:443>
+   ServerName wordpress.net
+   DocumentRoot /var/www/html
+
+   SSLEngine on
+   SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
+   SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
+</VirtualHost>
+EOF
+
+echo "[debug] enabling WordPress simple ssl plugin"
+a2ensite wordpress.net.conf
+systemctl restart apache2
+
+echo "[debug] simple ssl plugin install"
+./wp-cli.phar plugin install really-simple-ssl
