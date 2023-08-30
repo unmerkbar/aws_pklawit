@@ -91,4 +91,31 @@ a2ensite wordpress.net.conf
 systemctl restart apache2
 
 #echo "[debug] simple ssl plugin install"
-#./wp-cli.phar plugin install really-simple-ssl
+#./wp-cli.phar plugin install really-simple-ssl --allow-root
+
+echo "[debug] creating php script to add admin user: /var/www/html/create-admin.php"
+cat << 'EOF' > /var/www/html/create-admin.php
+<?php
+define('WP_USE_THEMES', true);
+// Load the WordPress library.
+require_once( dirname(__FILE__) . '/wp-load.php' );
+
+// Set up the WordPress query.
+wp();
+
+$username = 'developer';
+$password = 'developer123';
+$email = 'developer@localhost.com';
+
+// Create the new user
+$user_id = wp_create_user( $username, $password, $email );
+
+// Get current user object
+$user = get_user_by( 'id', $user_id );
+
+// Remove role
+$user->remove_role( 'subscriber' );
+
+// Add role
+$user->add_role( 'administrator' );
+EOF
