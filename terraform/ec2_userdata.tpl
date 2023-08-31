@@ -6,7 +6,7 @@ db_username=${db_username}
 db_user_password=${db_user_password}
 db_name=${db_name}
 db_RDS=${db_RDS}
-public_ip=35.180.179.247
+public_ip="35.180.179.247"
 
 echo "[debug] Input variables:"
 echo "db_username: ${db_username}"
