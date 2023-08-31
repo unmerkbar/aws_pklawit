@@ -8,9 +8,7 @@ db_name=${db_name}
 db_RDS=${db_RDS}
 wp_admin_user=${wp_admin_user}
 wp_admin_password=${wp_admin_password}
-wp_admin_email=${wp_admin_email}
 public_ip=${public_ip}
-wp_url=${wp_url}
 
 echo "[debug] Input variables:"
 echo "db_username: ${db_username}"
@@ -19,9 +17,7 @@ echo "db_name: ${db_name}"
 echo "db_RDS: ${db_RDS}"
 echo "wp_admin_user: ${wp_admin_user}"
 echo "wp_admin_password: ${wp_admin_password}"
-echo "wp_admin_email: ${wp_admin_email}"
 echo "public_ip: ${public_ip}"
-echo "wp_url: ${wp_url}"
 
 # install LAMP Server
 apt update  -y
@@ -106,10 +102,10 @@ systemctl restart apache2
 # https://www.digitalocean.com/community/tutorials/how-to-use-wp-cli-to-manage-your-wordpress-site-from-the-command-line
 echo "[debug] triggering initial setup"
 ./wp-cli.phar core install \
-  --url="35.180.179.247" \
+  --url=35.180.179.247 \
   --title="WordPress in the cloud" \
-  --admin_user=${wp_admin_user} \
-  --admin_password=${wp_admin_password \
+  --admin_user=wordpress_admin \
+  --admin_password=R00tR@@t \
   --admin_email=pklawit@gmail.com \
   --path=/var/www/html \
   --allow-root
@@ -147,4 +143,3 @@ EOF
 
 echo "[debug] executing the create admin script at: /var/www/html/create-admin.php"
 php /var/www/html/create-admin.php
-
