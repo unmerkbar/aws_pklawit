@@ -8,7 +8,9 @@ db_name=${db_name}
 db_RDS=${db_RDS}
 wp_admin_user=${wp_admin_user}
 wp_admin_password=${wp_admin_password}
+wp_admin_email=${wp_admin_email}
 public_ip=${public_ip}
+wp_url=${wp_url}
 
 echo "[debug] Input variables:"
 echo "db_username: ${db_username}"
