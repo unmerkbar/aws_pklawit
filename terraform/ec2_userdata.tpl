@@ -45,18 +45,10 @@ chmod +x wp-cli.phar
 define('FS_METHOD', 'direct');
 define('WP_MEMORY_LIMIT', '128M');
 define('WP_ENVIRONMENT_TYPE', 'development');
+define('WP_SITEURL','http://localhost');
 PHP
 
-# https://www.digitalocean.com/community/tutorials/how-to-use-wp-cli-to-manage-your-wordpress-site-from-the-command-line
-echo "[debug] triggering initial setup"
-./wp-cli.phar core install \
-  --url="wordpress.net" \
-  --title="WordPress in the cloud" \
-  --admin_user="wordpress_admin" \
-  --admin_password="wordpress_password" \
-  --admin_email="pklawit@gmail.com" \
-  --path=/var/www/html \
-  --allow-root
+
 
 # Change permission of /var/www/html/
 chown -R ubuntu:www-data /var/www/html
@@ -103,6 +95,20 @@ systemctl restart apache2
 #echo "[debug] simple ssl plugin install - not needed anymore"
 #./wp-cli.phar plugin install really-simple-ssl --allow-root
 
+# https://www.digitalocean.com/community/tutorials/how-to-use-wp-cli-to-manage-your-wordpress-site-from-the-command-line
+echo "[debug] triggering initial setup"
+./wp-cli.phar core install \
+  --url=http://localhost
+  --title="WordPress in the cloud" \
+  --admin_user=wordpress_admin \
+  --admin_password=R00tR@@t \
+  --admin_email=pklawit@gmail.com \
+  --path=/var/www/html \
+  --allow-root
+
+wp core install --url=wordpress.dev --title="WordPress Dev" --admin_user=wpadmin --admin_password=p@55w0ord! --admin_email=you@myemail.com
+
+
 # this script needs to be launched after the initial setup has been done
 echo "[debug] creating php script to add admin user: /var/www/html/create-admin.php"
 cat << 'EOF' > /var/www/html/create-admin.php
@@ -130,3 +136,7 @@ $user->remove_role( 'subscriber' );
 // Add role
 $user->add_role( 'administrator' );
 EOF
+
+echo "[debug] executing the create admin script at: /var/www/html/create-admin.php"
+php /var/www/html/create-admin.php
+
