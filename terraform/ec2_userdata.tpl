@@ -144,6 +144,6 @@ php /var/www/html/create-admin.php
 echo "Creating application password for user: ${wp_admin_user}"
 ./wp-cli.phar user application-password create ${wp_admin_user} wpadmin_myapp --path=/var/www/html --allow-root
 echo "Creating application password for user: developer"
-./wp-cli.phar user application-password create developer developer_myapp --path=/var/www/html
+./wp-cli.phar user application-password create developer developer_myapp --path=/var/www/html --allow-root
 
 
