@@ -6,12 +6,18 @@ db_username=${db_username}
 db_user_password=${db_user_password}
 db_name=${db_name}
 db_RDS=${db_RDS}
+wp_admin_user=${wp_admin_user}
+wp_admin_password=${wp_admin_password}
+public_ip=${public_ip}
 
 echo "[debug] Input variables:"
 echo "db_username: ${db_username}"
 echo "db_user_password: ${db_user_password}"
 echo "db_name: ${db_name}"
 echo "db_RDS: ${db_RDS}"
+echo "wp_admin_user: ${wp_admin_user}"
+echo "wp_admin_password: ${wp_admin_password}"
+echo "public_ip: ${public_ip}"
 
 # install LAMP Server
 apt update  -y
