@@ -183,8 +183,10 @@ data "template_file" "user_data" {
     db_name = var.database_name
     db_RDS = aws_db_instance.wordpress-db.endpoint
     public_ip = var.public_ip
+    wp_url = var.wp_url
     wp_admin_user = var.wp_admin_user
     wp_admin_password = var.wp_admin_password
+    wp_admin_email = var.wp_admin_email
   }
 }
 
