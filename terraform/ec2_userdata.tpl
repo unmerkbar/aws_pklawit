@@ -6,6 +6,7 @@ db_username=${db_username}
 db_user_password=${db_user_password}
 db_name=${db_name}
 db_RDS=${db_RDS}
+public_ip=35.180.179.247
 
 echo "[debug] Input variables:"
 echo "db_username: ${db_username}"
@@ -51,7 +52,7 @@ chmod +x wp-cli.phar
 define('FS_METHOD', 'direct');
 define('WP_MEMORY_LIMIT', '128M');
 define('WP_ENVIRONMENT_TYPE', 'development');
-define('WP_SITEURL','http://localhost');
+define('WP_SITEURL',$public_ip);
 PHP
 
 # Change permission of /var/www/html/
@@ -97,7 +98,7 @@ systemctl restart apache2
 # https://www.digitalocean.com/community/tutorials/how-to-use-wp-cli-to-manage-your-wordpress-site-from-the-command-line
 echo "[debug] triggering initial setup"
 ./wp-cli.phar core install \
-  --url=http://localhost \
+  --url=https://$public_ip \
   --title="WordPress in the cloud" \
   --admin_user=wordpress_admin \
   --admin_password=R00tR@@t \
