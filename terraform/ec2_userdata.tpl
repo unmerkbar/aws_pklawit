@@ -99,10 +99,6 @@ echo "[debug] enabling wordpress.net site"
 a2ensite wordpress.net.conf
 systemctl restart apache2
 
-#echo "[debug] simple ssl plugin install - not needed anymore"
-#./wp-cli.phar plugin install really-simple-ssl --allow-root
-
-# https://www.digitalocean.com/community/tutorials/how-to-use-wp-cli-to-manage-your-wordpress-site-from-the-command-line
 echo "[debug] triggering initial setup"
 ./wp-cli.phar core install \
   --url=${public_ip} \
@@ -112,9 +108,6 @@ echo "[debug] triggering initial setup"
   --admin_email=${wp_admin_email} \
   --path=/var/www/html \
   --allow-root
-
-# wp core install --url=wordpress.dev --title="WordPress Dev" --admin_user=wpadmin --admin_password=p@55w0ord! --admin_email=you@myemail.com
-
 
 # this script needs to be launched after the initial setup has been done
 echo "[debug] creating php script to add admin user: /var/www/html/create-admin.php"
@@ -146,3 +139,11 @@ EOF
 
 echo "[debug] executing the create admin script at: /var/www/html/create-admin.php"
 php /var/www/html/create-admin.php
+
+# Create Application password for both users
+echo "Creating application password for user: ${wp_admin_user}"
+./wp-cli.phar user application-password create ${wp_admin_user} wpadmin_myapp --path=/var/www/html --allow-root
+echo "Creating application password for user: developer"
+./wp-cli.phar user application-password create developer developer_myapp --path=/var/www/html
+
+
