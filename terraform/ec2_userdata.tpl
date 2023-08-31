@@ -13,6 +13,7 @@ echo "db_username: ${db_username}"
 echo "db_user_password: ${db_user_password}"
 echo "db_name: ${db_name}"
 echo "db_RDS: ${db_RDS}"
+echo "public_ip: ${public_ip}"
 
 # install LAMP Server
 apt update  -y
@@ -52,7 +53,7 @@ chmod +x wp-cli.phar
 define('FS_METHOD', 'direct');
 define('WP_MEMORY_LIMIT', '128M');
 define('WP_ENVIRONMENT_TYPE', 'development');
-define('WP_SITEURL',$public_ip);
+define('WP_SITEURL','https://35.180.179.247');
 PHP
 
 # Change permission of /var/www/html/
@@ -98,7 +99,7 @@ systemctl restart apache2
 # https://www.digitalocean.com/community/tutorials/how-to-use-wp-cli-to-manage-your-wordpress-site-from-the-command-line
 echo "[debug] triggering initial setup"
 ./wp-cli.phar core install \
-  --url=https://$public_ip \
+  --url=35.180.179.247 \
   --title="WordPress in the cloud" \
   --admin_user=wordpress_admin \
   --admin_password=R00tR@@t \
