@@ -7,6 +7,12 @@ db_user_password=${db_user_password}
 db_name=${db_name}
 db_RDS=${db_RDS}
 
+echo "[debug] Input variables:"
+echo "db_username: ${db_username}"
+echo "db_user_password: ${db_user_password}"
+echo "db_name: ${db_name}"
+echo "db_RDS: ${db_RDS}"
+
 # install LAMP Server
 apt update  -y
 apt upgrade -y
@@ -48,8 +54,6 @@ define('WP_ENVIRONMENT_TYPE', 'development');
 define('WP_SITEURL','http://localhost');
 PHP
 
-
-
 # Change permission of /var/www/html/
 chown -R ubuntu:www-data /var/www/html
 chmod -R 774 /var/www/html
@@ -61,12 +65,7 @@ a2enmod rewrite
 # restart apache
 systemctl restart apache2
 
-echo "[debug] WordPress Installed"
-echo "db_username: ${db_username}"
-echo "db_user_password: ${db_user_password}"
-echo "db_name: ${db_name}"
-echo "db_RDS: ${db_RDS}"
-
+# HTTPS stuff
 # enable ssl module in apache2
 echo "[debug] enabling ssl module in apache2"
 a2enmod ssl
@@ -98,7 +97,7 @@ systemctl restart apache2
 # https://www.digitalocean.com/community/tutorials/how-to-use-wp-cli-to-manage-your-wordpress-site-from-the-command-line
 echo "[debug] triggering initial setup"
 ./wp-cli.phar core install \
-  --url=http://localhost
+  --url=http://localhost \
   --title="WordPress in the cloud" \
   --admin_user=wordpress_admin \
   --admin_password=R00tR@@t \
@@ -106,7 +105,7 @@ echo "[debug] triggering initial setup"
   --path=/var/www/html \
   --allow-root
 
-wp core install --url=wordpress.dev --title="WordPress Dev" --admin_user=wpadmin --admin_password=p@55w0ord! --admin_email=you@myemail.com
+# wp core install --url=wordpress.dev --title="WordPress Dev" --admin_user=wpadmin --admin_password=p@55w0ord! --admin_email=you@myemail.com
 
 
 # this script needs to be launched after the initial setup has been done
