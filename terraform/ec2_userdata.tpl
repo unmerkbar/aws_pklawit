@@ -6,14 +6,12 @@ db_username=${db_username}
 db_user_password=${db_user_password}
 db_name=${db_name}
 db_RDS=${db_RDS}
-# public_ip="35.180.179.247"
 
 echo "[debug] Input variables:"
 echo "db_username: ${db_username}"
 echo "db_user_password: ${db_user_password}"
 echo "db_name: ${db_name}"
 echo "db_RDS: ${db_RDS}"
-# echo "public_ip: ${public_ip}"
 
 # install LAMP Server
 apt update  -y
