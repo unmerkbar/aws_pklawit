@@ -106,11 +106,11 @@ systemctl restart apache2
 # https://www.digitalocean.com/community/tutorials/how-to-use-wp-cli-to-manage-your-wordpress-site-from-the-command-line
 echo "[debug] triggering initial setup"
 ./wp-cli.phar core install \
-  --url=35.180.179.247 \
+  --url=${public_ip} \
   --title="WordPress in the cloud" \
-  --admin_user=wordpress_admin \
-  --admin_password=R00tR@@t \
-  --admin_email=pklawit@gmail.com \
+  --admin_user=${wp_admin_user} \
+  --admin_password=${wp_admin_password} \
+  --admin_email=${wp_admin_email} \
   --path=/var/www/html \
   --allow-root
 
