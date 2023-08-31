@@ -15,3 +15,6 @@ database_name           = "wordpress_db"   // database name
 database_user           = "wordpress_user" //database username
 // Password here will be used to create master db user.It should be changed later
 database_password = "PassWord4-user" //password for user database
+public_ip = "35.180.179.247"
+wp_admin_user = "wp_admin"
+wp_admin_password = "R00tR@@t"
