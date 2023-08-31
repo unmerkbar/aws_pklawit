@@ -18,3 +18,6 @@ variable "PUBLIC_KEY_PATH" {}
 variable "PRIV_KEY_PATH" {}
 variable "root_volume_size" {}
 variable "public_ip" {}
+variable "wp_admin_user" {}
+variable "wp_admin_password" {}
+
