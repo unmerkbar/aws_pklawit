@@ -60,7 +60,6 @@ chmod +x wp-cli.phar
 ./wp-cli.phar config create --dbname=$db_name --dbuser=$db_username --dbpass=$db_user_password --dbhost=$db_RDS --path=/var/www/html --allow-root --extra-php <<PHP
 define('FS_METHOD', 'direct');
 define('WP_MEMORY_LIMIT', '128M');
-define('WP_SITEURL',"$wp_url");
 PHP
 
 # Change permission of /var/www/html/
@@ -109,8 +108,8 @@ echo "[debug] triggering initial setup"
   --url=${public_ip} \
   --title="WordPress in the cloud" \
   --admin_user=${wp_admin_user} \
-  --admin_password=${wp_admin_password \
-  --admin_email=pklawit@gmail.com \
+  --admin_password=${wp_admin_password} \
+  --admin_email=${wp_admin_email} \
   --path=/var/www/html \
   --allow-root
 
@@ -147,4 +146,3 @@ EOF
 
 echo "[debug] executing the create admin script at: /var/www/html/create-admin.php"
 php /var/www/html/create-admin.php
-
