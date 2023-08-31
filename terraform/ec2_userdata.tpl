@@ -19,7 +19,9 @@ echo "db_name: ${db_name}"
 echo "db_RDS: ${db_RDS}"
 echo "wp_admin_user: ${wp_admin_user}"
 echo "wp_admin_password: ${wp_admin_password}"
+echo "wp_admin_email: ${wp_admin_email}"
 echo "public_ip: ${public_ip}"
+echo "wp_url: ${wp_url}"
 
 # install LAMP Server
 apt update  -y
