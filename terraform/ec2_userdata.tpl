@@ -49,7 +49,7 @@ PHP
 
 # https://www.digitalocean.com/community/tutorials/how-to-use-wp-cli-to-manage-your-wordpress-site-from-the-command-line
 echo "[debug] triggering initial setup"
-./wp-cli.phar core install --url="wordpress.net" --title="WordPress in the cloud" --admin_user="wordpress_admin" --admin_password="wordpress_password" --admin_email="pklawit@gmail.com"
+./wp-cli.phar core install --url="wordpress.net" --title="WordPress in the cloud" --admin_user="wordpress_admin" --admin_password="wordpress_password" --admin_email="pklawit@gmail.com" --allow-root
 
 # Change permission of /var/www/html/
 chown -R ubuntu:www-data /var/www/html
