@@ -60,7 +60,7 @@ chmod +x wp-cli.phar
 ./wp-cli.phar config create --dbname=$db_name --dbuser=$db_username --dbpass=$db_user_password --dbhost=$db_RDS --path=/var/www/html --allow-root --extra-php <<PHP
 define('FS_METHOD', 'direct');
 define('WP_MEMORY_LIMIT', '128M');
-define('WP_SITEURL',"$wp_url");
+define('WP_SITEURL','https://35.180.179.247');
 PHP
 
 # Change permission of /var/www/html/
@@ -106,7 +106,7 @@ systemctl restart apache2
 # https://www.digitalocean.com/community/tutorials/how-to-use-wp-cli-to-manage-your-wordpress-site-from-the-command-line
 echo "[debug] triggering initial setup"
 ./wp-cli.phar core install \
-  --url=${public_ip} \
+  --url="35.180.179.247" \
   --title="WordPress in the cloud" \
   --admin_user=${wp_admin_user} \
   --admin_password=${wp_admin_password \
