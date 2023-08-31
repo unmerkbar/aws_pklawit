@@ -50,7 +50,6 @@ chmod +x wp-cli.phar
 ./wp-cli.phar config create --dbname=$db_name --dbuser=$db_username --dbpass=$db_user_password --dbhost=$db_RDS --path=/var/www/html --allow-root --extra-php <<PHP
 define('FS_METHOD', 'direct');
 define('WP_MEMORY_LIMIT', '128M');
-define('WP_ENVIRONMENT_TYPE', 'development');
 define('WP_SITEURL','https://35.180.179.247');
 PHP
 
