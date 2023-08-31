@@ -212,16 +212,16 @@ resource "aws_key_pair" "mykey-pair" {
   public_key = file(var.PUBLIC_KEY_PATH)
 }
 
-# creating Elastic IP for EC2
-resource "aws_eip" "eip" {
-  instance = aws_instance.wordpress-ec2.id
-}
+# # creating Elastic IP for EC2
+# resource "aws_eip" "eip" {
+#   instance = aws_instance.wordpress-ec2.id
+# }
 
 # attaching Elastic IP to EC2
-#resource "aws_eip_association" "pklawit_eip" {
-#  instance_id   = aws_instance.wordpress-ec2.id
-#  allocation_id = aws_eip.pklawit_eip.id
-#}
+resource "aws_eip_association" "pklawit_eip" {
+  instance_id   = aws_instance.wordpress-ec2.id
+  allocation_id = aws_eip.pklawit_eip.id
+}
 
 output "IP" {
   value = aws_eip.eip.public_ip
