@@ -8,9 +8,9 @@ db_name=${db_name}
 db_RDS=${db_RDS}
 wp_admin_user=${wp_admin_user}
 wp_admin_password=${wp_admin_password}
+wp_admin_email=${wp_admin_email}
 public_ip=${public_ip}
-
-wp_url="https://${public_ip}"
+wp_url=${wp_url}
 
 echo "[debug] Input variables:"
 echo "db_username: ${db_username}"
@@ -19,7 +19,9 @@ echo "db_name: ${db_name}"
 echo "db_RDS: ${db_RDS}"
 echo "wp_admin_user: ${wp_admin_user}"
 echo "wp_admin_password: ${wp_admin_password}"
+echo "wp_admin_email: ${wp_admin_email}"
 echo "public_ip: ${public_ip}"
+echo "wp_url: ${wp_url}"
 
 # install LAMP Server
 apt update  -y
@@ -58,7 +60,7 @@ chmod +x wp-cli.phar
 ./wp-cli.phar config create --dbname=$db_name --dbuser=$db_username --dbpass=$db_user_password --dbhost=$db_RDS --path=/var/www/html --allow-root --extra-php <<PHP
 define('FS_METHOD', 'direct');
 define('WP_MEMORY_LIMIT', '128M');
-define('WP_SITEURL',${wp_url});
+define('WP_SITEURL',"$wp_url");
 PHP
 
 # Change permission of /var/www/html/
