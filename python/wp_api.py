@@ -2,7 +2,7 @@ import requests
 import base64
 
 wordpress_user = "wp_admin"
-wordpress_password = "YG1U87Jl1gOdofbFLGx1cEhj"
+wordpress_password = "NuYm4t13PvEuFaebpxaBXlFL"
 wordpress_credentials = "%s:%s" % (wordpress_user, wordpress_password)
 wordpress_token = base64.b64encode(wordpress_credentials.encode())
 wordpress_header = {'Authorization': 'Basic ' + wordpress_token.decode('utf-8')}
