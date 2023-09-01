@@ -21,8 +21,8 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
-    name: Deploy
+  reinstall:
+    name: Reinstall
     runs-on: ubuntu-latest
     environment: production
 
