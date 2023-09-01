@@ -44,6 +44,7 @@ jobs:
     - name: Check Python installation
       run: |
         python --version
+        pip3 install -r ./python/requirements.txt
         python ./python/wp_api.py
-                
+
       
