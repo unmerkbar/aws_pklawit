@@ -1,1 +1,46 @@
 name: Publish post with REST API
+
+on:
+  workflow_dispatch:
+    inputs:
+      post_subject:
+        description: "Please enter the post's subject"
+        type: choice
+        required: true
+        default: 'no'
+        options:
+          - 'no'
+          - 'yes'
+          
+env:
+  AWS_REGION: eu-west-3
+  TERRAFORM_DIR: "./terraform"
+  SSH_KEYS_DIR: "./terraform/ssh_keys"
+  
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Print inputs
+      run: echo "${{ toJSON(github.event.inputs) }}"
+
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Environment
+      run: env
+
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+          
+    - name: Check Python installation
+      run: python --version
+      
