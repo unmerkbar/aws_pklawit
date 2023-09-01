@@ -17,12 +17,12 @@ def read_wordpress_posts():
   response_json = response.json()
   print(response_json)
 
-def create_wordpress_post():
+def create_wordpress_post(subject='empty subject', content='empty content'):
   data = {
-    'title' : 'Post created with WP API',
+    'title' : '%s' % subject,
     'status': 'publish',
     'slug' : 'API published post',
-    'content': 'This post has been created with REST API'
+    'content': '%s' % content
   }
   response = requests.post(api_url,headers=wordpress_header, json=data, verify=False)
   print(response)
@@ -36,11 +36,14 @@ print("Number of arguments passed:", n)
 # Arguments passed
 print("\nName of Python script:", sys.argv[0])
  
-print("\nArguments passed:", end = " ")
+print("\nArguments passed: ")
 for i in range(1, n):
-    print(sys.argv[i], end = " ")
+    print("'%s' " % sys.argv[i])
 
+if n != 3:
+   print("Incorrect number of parameters provided! Exiting")
+   exit(-1)
 
 #read_wordpress_posts()
 
-#create_wordpress_post()
+create_wordpress_post(subject, content)

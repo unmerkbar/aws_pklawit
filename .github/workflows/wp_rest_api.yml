@@ -27,25 +27,22 @@ jobs:
     environment: production
 
     steps:
-    - name: Print inputs
-      run: echo "${{ toJSON(github.event.inputs) }}"
 
     - name: Checkout
       uses: actions/checkout@v3
-
-    - name: Environment
-      run: env
 
     - name: Install Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
           
-    - name: Check Python installation
+    - name: Check Python installation and install requirements
       run: |
         python --version
         pip3 install -r ./python/requirements.txt
-        python ./python/wp_api.py "${{ inputs.post_title }}" "${{ inputs.post_content }}"
+
+    - name: Run python script that will publish post
+      run: python ./python/wp_api.py "${{ inputs.post_title }}" "${{ inputs.post_content }}"
 
 
       
