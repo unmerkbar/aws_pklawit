@@ -3,14 +3,14 @@ name: Publish post with REST API
 on:
   workflow_dispatch:
     inputs:
-      post_subject:
+      post_title:
         description: "Please enter the post's subject"
-        type: choice
         required: true
-        default: 'no'
-        options:
-          - 'no'
-          - 'yes'
+        default: ''
+      post_content:
+        description: "Provide content of the post"
+        required: true
+        default: ''
           
 env:
   AWS_REGION: eu-west-3
@@ -45,6 +45,7 @@ jobs:
       run: |
         python --version
         pip3 install -r ./python/requirements.txt
-        python ./python/wp_api.py
+        python ./python/wp_api.py ${{ inputs.post_title }} ${{ inputs.post_content }}
+
 
       

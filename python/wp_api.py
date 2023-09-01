@@ -1,5 +1,6 @@
 import requests
 import base64
+import sys
 
 wordpress_user = "wp_admin"
 wordpress_password = "NuYm4t13PvEuFaebpxaBXlFL"
@@ -28,6 +29,18 @@ def create_wordpress_post():
 
 # Main part
 
+# total arguments
+n = len(sys.argv)
+print("Number of arguments passed:", n)
+ 
+# Arguments passed
+print("\nName of Python script:", sys.argv[0])
+ 
+print("\nArguments passed:", end = " ")
+for i in range(1, n):
+    print(sys.argv[i], end = " ")
+
+
 #read_wordpress_posts()
 
-create_wordpress_post()
+#create_wordpress_post()
