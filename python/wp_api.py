@@ -45,5 +45,6 @@ if n != 3:
    exit(-1)
 
 #read_wordpress_posts()
-
+subject = sys.argv[1]
+content = sys.argv[2]
 create_wordpress_post(subject, content)
