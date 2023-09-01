@@ -45,7 +45,7 @@ jobs:
       run: |
         python --version
         pip3 install -r ./python/requirements.txt
-        python ./python/wp_api.py ${{ inputs.post_title }} ${{ inputs.post_content }}
+        python ./python/wp_api.py "${{ inputs.post_title }}" "${{ inputs.post_content }}"
 
 
       
