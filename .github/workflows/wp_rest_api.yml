@@ -44,6 +44,6 @@ jobs:
     - name: Check Python installation
       run: |
         python --version
-        python import requests
-        
+        python ./python/wp_api.py
+                
       
